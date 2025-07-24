@@ -56,12 +56,19 @@ class AboutMePage extends StatelessWidget {
                     onTap: () => _navigateTo(context, '/'),
                   ),
                   _NavButton(title: 'About', isActive: true, onTap: () {}),
+<<<<<<< HEAD
                   _NavButton(title: 'Projects', onTap: () => {}),
+=======
+>>>>>>> e5befee38765cd046957a9638d611e84d48f52fc
                   _NavButton(
                     title: 'Experience',
                     onTap: () => _navigateTo(context, '/experience'),
                   ),
+<<<<<<< HEAD
                   
+=======
+                  _NavButton(title: 'Projects', onTap: () => {}),
+>>>>>>> e5befee38765cd046957a9638d611e84d48f52fc
                   _NavButton(
                     title: 'Contact Me',
                     onTap: () => _navigateTo(context, '/contact'),

@@ -17,19 +17,28 @@ class ContactMePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text('  Contact Me',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 36,
-                  fontWeight: FontWeight.bold,
-                ),),
+                Text(
+                  '  Contact Me',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 36,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 const SizedBox(height: 8),
-                Text('  You can reach out to me using the form below or via email.',
-                style: TextStyle(
-                  color: const Color.fromARGB(255, 126, 127, 127).withOpacity(0.8),
+                Text(
+                  '  You can reach out to me using the form below or via email.',
+                  style: TextStyle(
+                    color: const Color.fromARGB(
+                      255,
+                      126,
+                      127,
+                      127,
+                    ).withOpacity(0.8),
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                ),),
+                  ),
+                ),
                 const SizedBox(height: 50),
                 _buildTextField(
                   icon: Icons.person,
@@ -65,7 +74,9 @@ class ContactMePage extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.deepPurple,
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 32, vertical: 16),
+                      horizontal: 32,
+                      vertical: 16,
+                    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
@@ -86,7 +97,12 @@ class ContactMePage extends StatelessWidget {
                 Text(
                   'You can also reach me via : krishnaagrahari.16@gmail.com',
                   style: TextStyle(
-                    color: const Color.fromARGB(255, 126, 127, 127).withOpacity(0.8),
+                    color: const Color.fromARGB(
+                      255,
+                      126,
+                      127,
+                      127,
+                    ).withOpacity(0.8),
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
@@ -128,26 +144,20 @@ class ContactMePage extends StatelessWidget {
                       );
                     },
                   ),
-                  _NavButton(
-                    title: 'Projects',
-                    isActive: false,
-                    onTap: () {},
-                  ),
+                  _NavButton(title: 'Projects', isActive: false, onTap: () {}),
                   _NavButton(
                     title: 'Experience',
                     isActive: false,
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (_) => const ExperiencePage()),
+                        MaterialPageRoute(
+                          builder: (_) => const ExperiencePage(),
+                        ),
                       );
                     },
                   ),
-                  _NavButton(
-                    title: 'Contact Me',
-                    isActive: true,
-                    onTap: () {},
-                  ),
+                  _NavButton(title: 'Contact Me', isActive: true, onTap: () {}),
                 ],
               ),
             ),
@@ -204,8 +214,7 @@ class _NavButton extends StatelessWidget {
           color: isActive ? Colors.green : Colors.white,
           fontSize: 16,
           fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
-         
-         ),
+        ),
       ),
     );
   }

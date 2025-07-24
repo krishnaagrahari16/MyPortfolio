@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/sections/HomeSection.dart';
 import 'package:portfolio/sections/about.dart';
-
 import 'package:portfolio/sections/contactsection.dart';
 import 'package:portfolio/sections/experience.dart';
 
@@ -21,7 +20,7 @@ class PortfolioApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const HomeScreen(),
-         '/about': (context) => const AboutMePage(),
+        '/about': (context) => const AboutMePage(),
         '/contact': (context) => const ContactMePage(),
         '/experience': (context) => const ExperiencePage(),
       },

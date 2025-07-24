@@ -1,42 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/sections/about.dart';
-import 'package:portfolio/sections/contactsection.dart';
-import 'package:portfolio/sections/experience.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  String _currentSection = 'Home';
-
-  void _navigateTo(String section) {
-    setState(() {
-      _currentSection = section;
-    });
-    if (section == 'Contact Me') {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (_) => const ContactMePage()),
-      );
-    } else if (section == 'About') {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (_) => const AboutMePage()),
-      );
+  void _navigateTo(BuildContext context, String section) {
+    String route = '/';
+    switch (section) {
+      case 'Home':
+        route = '/';
+        break;
+      case 'About':
+        route = '/about';
+        break;
+      case 'Experience':
+        route = '/experience';
+        break;
+      case 'Contact Me':
+        route = '/contact';
+        break;
+      case 'Projects':
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Projects page is under construction")),
+        );
+        return;
     }
-     else if (section == 'Experience') {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (_) => const ExperiencePage()),
-      );
+    if (ModalRoute.of(context)?.settings.name != route) {
+      Navigator.pushNamedAndRemoveUntil(context, route, (route) => false);
     }
-    // Add navigation for other sections if needed
   }
 
   @override
@@ -45,7 +36,6 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Colors.transparent,
       body: Stack(
         children: [
-          // Background gradient and glow
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -83,8 +73,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-
-          // Navbar
           Align(
             alignment: Alignment.topCenter,
             child: Container(
@@ -100,34 +88,29 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   _NavButton(
                     title: 'Home',
-                    isActive: _currentSection == 'Home',
-                    onTap: () => _navigateTo('Home'),
+                    isActive: true,
+                    onTap: () => _navigateTo(context, 'Home'),
                   ),
                   _NavButton(
                     title: 'About',
-                    isActive: _currentSection == 'About',
-                    onTap: () => _navigateTo('About'),
+                    onTap: () => _navigateTo(context, 'About'),
                   ),
                   _NavButton(
                     title: 'Projects',
-                    isActive: _currentSection == 'Projects',
-                    onTap: () => _navigateTo('Projects'),
+                    onTap: () => _navigateTo(context, 'Projects'),
                   ),
                   _NavButton(
                     title: 'Experience',
-                    isActive: _currentSection == 'Experience',
-                    onTap: () => _navigateTo('Experience'),
+                    onTap: () => _navigateTo(context, 'Experience'),
                   ),
                   _NavButton(
                     title: 'Contact Me',
-                    isActive: _currentSection == 'Contact Me',
-                    onTap: () => _navigateTo('Contact Me'),
+                    onTap: () => _navigateTo(context, 'Contact Me'),
                   ),
                 ],
               ),
             ),
           ),
-
           Center(
             child: SingleChildScrollView(
               padding: const EdgeInsets.only(top: 80),
@@ -138,7 +121,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     backgroundImage: AssetImage('assets/images/Avatar.png'),
                   ),
                   const SizedBox(height: 30),
-                  // RichText with gradient name
                   RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
@@ -157,10 +139,17 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: TextStyle(
                             fontSize: 50,
                             fontWeight: FontWeight.bold,
-                            foreground: Paint()
-                              ..shader = const LinearGradient(
-                                colors: [Colors.pink, Colors.orange, Colors.purple],
-                              ).createShader(const Rect.fromLTWH(0, 0, 300, 70)),
+                            foreground:
+                                Paint()
+                                  ..shader = const LinearGradient(
+                                    colors: [
+                                      Colors.pink,
+                                      Colors.orange,
+                                      Colors.purple,
+                                    ],
+                                  ).createShader(
+                                    const Rect.fromLTWH(0, 0, 300, 70),
+                                  ),
                             decoration: TextDecoration.none,
                           ),
                         ),
@@ -185,8 +174,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       InkWell(
                         onTap: () {
-                          launchUrl(Uri.parse(
-                              'https://www.linkedin.com/in/krishna-kumar-agrahari-24b2792a8/'));
+                          launchUrl(
+                            Uri.parse(
+                              'https://www.linkedin.com/in/krishna-kumar-agrahari-24b2792a8/',
+                            ),
+                          );
                         },
                         child: Image.asset(
                           'assets/images/linkedin.jpg',
@@ -196,8 +188,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       InkWell(
                         onTap: () {
-                          launchUrl(Uri.parse(
-                              'https://github.com/krishnaagrahari16'));
+                          launchUrl(
+                            Uri.parse('https://github.com/krishnaagrahari16'),
+                          );
                         },
                         child: Image.asset(
                           'assets/images/github.jpg',
@@ -223,18 +216,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     alignment: WrapAlignment.center,
                     children: [
                       ElevatedButton(
-                        onPressed: () => _navigateTo('Contact Me'),
+                        onPressed: () => _navigateTo(context, 'Contact Me'),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 255, 253, 253),
-                          foregroundColor:
-                              const Color.fromARGB(255, 0, 0, 0),
+                          backgroundColor: Colors.white,
+                          foregroundColor: Colors.black,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
                         ).copyWith(
-                          overlayColor:
-                              MaterialStateProperty.all(Colors.transparent),
+                          overlayColor: MaterialStateProperty.all(
+                            Colors.transparent,
+                          ),
                         ),
                         child: const Text(
                           'Get in Touch',
@@ -249,13 +241,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           const url =
                               'https://drive.google.com/file/d/1KXvH5nRwO19pk14pkFLDT1Oez2eQctIo/view?usp=drive_link';
                           if (await canLaunchUrl(Uri.parse(url))) {
-                            await launchUrl(Uri.parse(url),
-                                mode: LaunchMode.platformDefault);
+                            await launchUrl(
+                              Uri.parse(url),
+                              mode: LaunchMode.platformDefault,
+                            );
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                  content:
-                                      Text('Failed to open resume PDF')),
+                                content: Text('Failed to open resume PDF'),
+                              ),
                             );
                           }
                         },
@@ -266,8 +260,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             borderRadius: BorderRadius.circular(15),
                           ),
                         ).copyWith(
-                          overlayColor:
-                              MaterialStateProperty.all(Colors.transparent),
+                          overlayColor: MaterialStateProperty.all(
+                            Colors.transparent,
+                          ),
                         ),
                         child: const Text(
                           'Download Resume',
@@ -310,7 +305,6 @@ class _NavButton extends StatelessWidget {
           color: isActive ? Colors.green : Colors.white,
           fontSize: 16,
           fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
-        
         ),
       ),
     );
